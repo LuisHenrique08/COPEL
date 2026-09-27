@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Painel Administrativo | Quiz Copel</title>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet"
+    >
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: "Inter", Arial, sans-serif;
+
+            background: #080808;
+
+            color: white;
+
+            min-height: 100vh;
+        }
+
+        header {
+            height: 70px;
+
+            padding: 0 5%;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            background: #101010;
+
+            border-bottom: 1px solid #292929;
+        }
+
+        .logo {
+            font-weight: 900;
+
+            font-size: 20px;
+        }
+
+        .logo span {
+            color: #ff6b00;
+        }
+
+        button {
+            font-family: inherit;
+
+            border: none;
+
+            cursor: pointer;
+        }
+
+        .logout {
+            padding: 10px 18px;
+
+            background: #ff6b00;
+
+            color: white;
+
+            font-weight: 700;
+        }
+
+        main {
+            width: 90%;
+
+            max-width: 1400px;
+
+            margin: 50px auto;
+        }
+
+        h1 {
+            font-size: 42px;
+
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #888;
+
+            margin-bottom: 35px;
+        }
+
+        .login-container {
+            max-width: 450px;
+
+            margin: 100px auto;
+
+            padding: 40px;
+
+            background: #111;
+
+            border: 1px solid #292929;
+        }
+
+        .login-container h1 {
+            font-size: 30px;
+
+            margin-bottom: 10px;
+        }
+
+        .login-container p {
+            color: #888;
+
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+
+            margin-bottom: 8px;
+
+            font-weight: 700;
+        }
+
+        input {
+            width: 100%;
+
+            padding: 15px;
+
+            background: #080808;
+
+            color: white;
+
+            border: 1px solid #333;
+
+            outline: none;
+
+            font-size: 15px;
+        }
+
+        input:focus {
+            border-color: #ff6b00;
+        }
+
+        .login-button {
+            width: 100%;
+
+            padding: 15px;
+
+            background: #ff6b00;
+
+            color: white;
+
+            font-weight: 800;
+
+            font-size: 16px;
+        }
+
+        .error {
+            color: #ff6b00;
+
+            margin-top: 15px;
+        }
+
+        .admin-panel {
+            display: none;
+        }
+
+        .toolbar {
+            display: flex;
+
+            gap: 15px;
+
+            margin-bottom: 25px;
+
+            flex-wrap: wrap;
+        }
+
+        .toolbar button {
+            padding: 12px 20px;
+
+            background: #ff6b00;
+
+            color: white;
+
+            font-weight: 700;
+        }
+
+        .table-container {
+            overflow-x: auto;
+
+            border: 1px solid #292929;
+        }
+
+        table {
+            width: 100%;
+
+            border-collapse: collapse;
+
+            min-width: 850px;
+        }
+
+        th,
+        td {
+            padding: 15px;
+
+            text-align: left;
+
+            border-bottom: 1px solid #292929;
+        }
+
+        th {
+            background: #171717;
+
+            color: #ff6b00;
+
+            font-size: 13px;
+
+            text-transform: uppercase;
+
+            letter-spacing: 0.5px;
+        }
+
+        td {
+            color: #ccc;
+        }
+
+        tr:hover td {
+            background: #111;
+        }
+
+        .score {
+            font-weight: 800;
+
+            color: #ff6b00;
+        }
+
+        .empty {
+            padding: 40px;
+
+            text-align: center;
+
+            color: #777;
+        }
+
+        .loading {
+            color: #aaa;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<header>
+
+    <div class="logo">
+        ⚡ <span>COPEL</span> | ADMIN
+    </div>
+
+    <button
+        id="logoutButton"
+        class="logout"
+    >
+        Sair
+    </button>
+
+</header>
+
+
+<!-- LOGIN -->
+
+<section
+    id="loginContainer"
+    class="login-container"
+>
+
+    <h1>
+        Área administrativa
+    </h1>
+
+    <p>
+        Entre com sua conta de administrador.
+    </p>
+
+
+    <form id="loginForm">
+
+        <div class="form-group">
+
+            <label for="email">
+                E-mail
+            </label>
+
+            <input
+                type="email"
+                id="email"
+                required
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label for="password">
+                Senha
+            </label>
+
+            <input
+                type="password"
+                id="password"
+                required
+            >
+
+        </div>
+
+
+        <button
+            type="submit"
+            class="login-button"
+        >
+            Entrar
+        </button>
+
+
+        <div
+            id="loginError"
+            class="error"
+        ></div>
+
+    </form>
+
+</section>
+
+
+<!-- PAINEL -->
+
+<main
+    id="adminPanel"
+    class="admin-panel"
+>
+
+    <h1>
+        Resultados do desafio
+    </h1>
+
+    <p class="subtitle">
+        Histórico de participantes e resultados registrados.
+    </p>
+
+
+    <div class="toolbar">
+
+        <button id="refreshButton">
+            Atualizar
+        </button>
+
+        <button id="exportButton">
+            Exportar CSV
+        </button>
+
+    </div>
+
+
+    <div class="table-container">
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>
+                        Nome
+                    </th>
+
+                    <th>
+                        Matrícula
+                    </th>
+
+                    <th>
+                        Resultado
+                    </th>
+
+                    <th>
+                        Data
+                    </th>
+
+                    <th>
+                        Horário
+                    </th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody id="resultsBody">
+
+                <tr>
+
+                    <td
+                        colspan="5"
+                        class="empty"
+                    >
+                        Carregando...
+                    </td>
+
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</main>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="config.js"></script>
+
+
+<script>
+
+    const loginContainer =
+        document.getElementById(
+            "loginContainer"
+        );
+
+    const adminPanel =
+        document.getElementById(
+            "adminPanel"
+        );
+
+    const loginForm =
+        document.getElementById(
+            "loginForm"
+        );
+
+    const loginError =
+        document.getElementById(
+            "loginError"
+        );
+
+    const resultsBody =
+        document.getElementById(
+            "resultsBody"
+        );
+
+    const logoutButton =
+        document.getElementById(
+            "logoutButton"
+        );
+
+    const refreshButton =
+        document.getElementById(
+            "refreshButton"
+        );
+
+    const exportButton =
+        document.getElementById(
+            "exportButton"
+        );
+
+
+    let results = [];
+
+
+    /* =========================
+       VERIFICAR SESSÃO
+    ========================= */
+
+    async function checkSession() {
+
+        const {
+            data
+        } = await supabaseClient
+            .auth
+            .getSession();
+
+
+        if (
+            data &&
+            data.session
+        ) {
+
+            showAdmin();
+
+        } else {
+
+            showLogin();
+
+        }
+
+    }
+
+
+    /* =========================
+       LOGIN
+    ========================= */
+
+    loginForm.addEventListener(
+        "submit",
+        async function (event) {
+
+            event.preventDefault();
+
+
+            loginError.textContent = "";
+
+
+            const email =
+                document
+                    .getElementById("email")
+                    .value
+                    .trim();
+
+
+            const password =
+                document
+                    .getElementById("password")
+                    .value;
+
+
+            const {
+                error
+            } = await supabaseClient
+                .auth
+                .signInWithPassword({
+
+                    email: email,
+
+                    password: password
+
+                });
+
+
+            if (error) {
+
+                console.error(error);
+
+                loginError.textContent =
+                    "E-mail ou senha incorretos.";
+
+                return;
+
+            }
+
+
+            showAdmin();
+
+        }
+    );
+
+
+    /* =========================
+       MOSTRAR LOGIN
+    ========================= */
+
+    function showLogin() {
+
+        loginContainer.style.display =
+            "block";
+
+        adminPanel.style.display =
+            "none";
+
+    }
+
+
+    /* =========================
+       MOSTRAR ADMIN
+    ========================= */
+
+    async function showAdmin() {
+
+        loginContainer.style.display =
+            "none";
+
+        adminPanel.style.display =
+            "block";
+
+
+        await loadResults();
+
+    }
+
+
+    /* =========================
+       CARREGAR RESULTADOS
+    ========================= */
+
+    async function loadResults() {
+
+        resultsBody.innerHTML = `
+            <tr>
+                <td
+                    colspan="5"
+                    class="empty loading"
+                >
+                    Carregando resultados...
+                </td>
+            </tr>
+        `;
+
+
+        const {
+            data,
+            error
+        } = await supabaseClient
+            .from("quiz_results")
+            .select("*")
+            .order(
+                "answered_at",
+                {
+                    ascending: false
+                }
+            );
+
+
+        if (error) {
+
+            console.error(error);
+
+            resultsBody.innerHTML = `
+                <tr>
+                    <td
+                        colspan="5"
+                        class="empty"
+                    >
+                        Erro ao carregar os resultados.
+                    </td>
+                </tr>
+            `;
+
+            return;
+
+        }
+
+
+        results = data || [];
+
+
+        renderResults();
+
+    }
+
+
+    /* =========================
+       RENDERIZAR RESULTADOS
+    ========================= */
+
+    function renderResults() {
+
+        if (results.length === 0) {
+
+            resultsBody.innerHTML = `
+                <tr>
+                    <td
+                        colspan="5"
+                        class="empty"
+                    >
+                        Nenhum participante ainda.
+                    </td>
+                </tr>
+            `;
+
+            return;
+
+        }
+
+
+        resultsBody.innerHTML =
+            results
+                .map(
+                    function (item) {
+
+                        const date =
+                            new Date(
+                                item.answered_at
+                            );
+
+
+                        return `
+                            <tr>
+
+                                <td>
+                                    ${escapeHtml(item.name)}
+                                </td>
+
+                                <td>
+                                    ${escapeHtml(item.registration)}
+                                </td>
+
+                                <td class="score">
+                                    ${item.score}/${item.total_questions}
+                                </td>
+
+                                <td>
+                                    ${date.toLocaleDateString("pt-BR")}
+                                </td>
+
+                                <td>
+                                    ${date.toLocaleTimeString("pt-BR")}
+                                </td>
+
+                            </tr>
+                        `;
+
+                    }
+                )
+                .join("");
+
+    }
+
+
+    /* =========================
+       ATUALIZAR
+    ========================= */
+
+    refreshButton.addEventListener(
+        "click",
+        loadResults
+    );
+
+
+    /* =========================
+       LOGOUT
+    ========================= */
+
+    logoutButton.addEventListener(
+        "click",
+        async function () {
+
+            await supabaseClient
+                .auth
+                .signOut();
+
+
+            showLogin();
+
+        }
+    );
+
+
+    /* =========================
+       EXPORTAR CSV
+    ========================= */
+
+    exportButton.addEventListener(
+        "click",
+        function () {
+
+            if (results.length === 0) {
+
+                alert(
+                    "Não existem resultados para exportar."
+                );
+
+                return;
+
+            }
+
+
+            const header = [
+                "Nome",
+                "Matricula",
+                "Resultado",
+                "Total",
+                "Data",
+                "Horario"
+            ];
+
+
+            const rows =
+                results.map(
+                    function (item) {
+
+                        const date =
+                            new Date(
+                                item.answered_at
+                            );
+
+
+                        return [
+                            item.name,
+                            item.registration,
+                            item.score,
+                            item.total_questions,
+                            date.toLocaleDateString("pt-BR"),
+                            date.toLocaleTimeString("pt-BR")
+                        ];
+
+                    }
+                );
+
+
+            const csv = [
+                header,
+                ...rows
+            ]
+                .map(
+                    row =>
+                        row
+                            .map(
+                                value =>
+                                    `"${String(value)
+                                        .replace(/"/g, '""')}"`
+                            )
+                            .join(";")
+                )
+                .join("\n");
+
+
+            const blob =
+                new Blob(
+                    [
+                        "\ufeff" + csv
+                    ],
+                    {
+                        type:
+                            "text/csv;charset=utf-8;"
+                    }
+                );
+
+
+            const url =
+                URL.createObjectURL(blob);
+
+
+            const link =
+                document.createElement("a");
+
+
+            link.href = url;
+
+            link.download =
+                "resultados-quiz-copel.csv";
+
+
+            link.click();
+
+
+            URL.revokeObjectURL(url);
+
+        }
+    );
+
+
+    /* =========================
+       HTML SEGURO
+    ========================= */
+
+    function escapeHtml(value) {
+
+        return String(value)
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+
+    }
+
+
+    /* =========================
+       INICIAR
+    ========================= */
+
+    checkSession();
+
+</script>
+
+</body>
+
+</html>

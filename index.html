@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desafio Copel</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+ <!-- ======================
+     HERO + VALORES
+========================= -->
+<section class="hero" style="background: url('img/rede-distribuicao.png') center/cover no-repeat;">
+    <div class="hero-content reveal">
+        <h1><span>Desafio Copel</span> Conhecimento que gera energia</h1>
+        <a href="#valores" class="btn btn-primary">Começar</a>
+    </div>
+</section>
+
+<!-- ======================
+     VALORES
+========================= -->
+<section class="values-section" id="valores">
+    <div class="values-heading reveal">
+        <h2>Nossos Valores</h2>
+        
+    </div>
+
+    <div class="values-grid">
+        <!-- Valor 1 -->
+        <div class="value-card reveal">
+            <img src="img/forca-gente.png" alt="Nossa força é nossa gente" class="value-icon">
+            <div class="value-content">
+                <span class="value-number">01</span>
+                <h3>Nossa força é nossa gente</h3>
+                <p>Protagonismo, responsabilidade e celebração das vitórias.</p>
+            </div>
+        </div>
+
+        <!-- Valor 2 -->
+        <div class="value-card reveal">
+            <img src="img/cada-cliente.png" alt="Cada cliente importa" class="value-icon">
+            <div class="value-content">
+                <span class="value-number">02</span>
+                <h3>Cada cliente importa</h3>
+                <p>Confiança, qualidade e agilidade em cada entrega.</p>
+            </div>
+        </div>
+
+        <!-- Valor 3 (destacado embaixo) -->
+        <div class="value-card reveal value-main">
+            <img src="img/resultados.png" alt="Entregamos resultados extraordinários" class="value-icon">
+            <div class="value-content">
+                <span class="value-number">03</span>
+                <h3>Entregamos resultados extraordinários</h3>
+                <p>Construímos resultados sustentáveis ao longo do tempo, com disciplina e excelência.</p>
+            </div>
+        </div>
+
+        <!-- Valor 4 -->
+        <div class="value-card reveal">
+            <img src="img/futuro.png" alt="Movidos a futuro" class="value-icon">
+            <div class="value-content">
+                <span class="value-number">04</span>
+                <h3>Movidos a futuro</h3>
+                <p>Inovação, curiosidade e valorização da diversidade.</p>
+            </div>
+        </div>
+
+        <!-- Valor 5 (menor) -->
+        <div class="value-card reveal small-card">
+            <img src="img/seguranca-etica.png" alt="Segurança e ética são inegociáveis" class="value-icon">
+            <div class="value-content">
+                <span class="value-number">05</span>
+                <h3>Segurança e ética são inegociáveis</h3>
+                <p>Fazer o certo, cuidar uns dos outros e assumir responsabilidades.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+    <!-- =========================
+         REDE
+    ========================== -->
+    <section class="network-section">
+        <div class="network-image">
+            <img src="https://www.parana.pr.gov.br/sites/default/arquivos_restritos/files/imagem/2025-05/unnamed.jpg" alt="Rede elétrica">
+        </div>
+        <div class="network-content reveal">
+            <span class="eyebrow">ENERGIA EM MOVIMENTO</span>
+            <h2>Pessoas, tecnologia e energia conectando o Paraná.</h2>
+            <p>Agora é hora de colocar seus conhecimentos à prova.</p>
+        </div>
+    </section>
+
+    <!-- =========================
+         DESAFIO
+    ========================== -->
+    <section class="challenge-section" id="desafio">
+        <div class="section-container">
+            <div class="challenge-box reveal">
+                <span class="eyebrow">O DESAFIO</span>
+                <h2>Quanto você conhece sobre a Copel?</h2>
+                <p>Responda às perguntas, teste seus conhecimentos e veja seu resultado.</p>
+                <a href="#jogar" class="btn btn-primary">Iniciar desafio</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- =========================
+         JOGO
+    ========================== -->
+    <section class="game-section" id="jogar">
+        <div class="game-container">
+            <!-- CADASTRO -->
+            <div id="registrationScreen" class="game-screen">
+                <span class="eyebrow">PRONTO?</span>
+                <h2>Identifique-se para começar</h2>
+                <p>Informe seus dados para registrar sua participação.</p>
+                <form id="registrationForm">
+                    <div class="form-group">
+                        <label for="playerName">Nome</label>
+                        <input type="text" id="playerName" name="playerName" placeholder="Digite seu nome" maxlength="150" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="registration">Registro</label>
+                        <input type="text" id="registration" name="registration" placeholder="Digite seu registro" maxlength="50" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Começar jogo</button>
+                </form>
+            </div>
+
+            <!-- QUIZ -->
+            <div id="quizScreen" class="game-screen hidden">
+                <div class="quiz-header">
+                    <span id="questionNumber">Pergunta 1</span>
+                    <span id="progressText">1/10</span>
+                </div>
+                <div class="progress-bar">
+                    <div id="progressBar" class="progress-fill"></div>
+                </div>
+                <div class="question-area">
+                    <h2 id="questionText"></h2>
+                    <div id="answersContainer" class="answers-container"></div>
+                </div>
+                <button id="nextButton" class="btn btn-primary next-button" disabled>Próxima pergunta</button>
+            </div>
+
+            <!-- RESULTADO -->
+            <div id="resultScreen" class="game-screen hidden">
+                <span class="eyebrow">DESAFIO CONCLUÍDO</span>
+                <h2>Resultado</h2>
+                <div class="score-box">
+                    <span>Você acertou</span>
+                    <strong id="scoreText">0/10</strong>
+                </div>
+                <div id="resultMessage"></div>
+                <div class="answers-review">
+                    <h3>Revisão das respostas</h3>
+                    <div id="reviewContainer"></div>
+                </div>
+                <button id="restartButton" class="btn btn-primary">Fazer novamente</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- =========================
+         FOOTER
+    ========================== -->
+    <footer>
+        <div class="footer-logo">⚡ COPEL</div>
+        <p>Desafio Copel • Somos Pura Energia</p>
+        <a href="admin.html">Área administrativa</a>
+    </footer>
+
+    <!-- SUPABASE -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="config.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
